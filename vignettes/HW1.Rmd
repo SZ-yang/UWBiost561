@@ -16,30 +16,33 @@ knitr::opts_chunk$set(
 
 # Question 0
 
-## Question 0A: 
+## Question 0A:
+
 Joshua Yang
 
+## Question 0B:
 
-## Question 0B: 
 I have read and understood the entire syllabus.
 
+## Question 0C:
 
-
-## Question 0C: 
 I've taken BIOST 514, 515 and 523 which involves using R to perform simple and multiple linear regression, bootstrapping and other related statistical methods.
-
-
 
 # Question 1
 
 # Question 2: Simulating the Central Limit Theorem
-## Question 2A: 
+
+## Question 2A:
+
 The input is the amount of the numbers you want to generate, then function will randomly assign the number to generate with one of the three distribution (Gaussian, Gamma, and Chi-square).
+
 ```{r}
 source("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/homework1/generate_data.R")
 
 ```
+
 ## Question 2B:
+
 ```{r}
 library(ggplot2)
 results <- data.frame(mean = numeric(), n = factor())
@@ -61,20 +64,24 @@ ggplot(results, aes(x = mean)) +
        y = "Frequency") 
 ```
 
-
 ## Question 2C:
+
 The plot demonstrates the Central Limit Theorem by showing that sample means from a mixed distribution converge towards a normal distribution as sample size increases, regardless of the original data's distribution.
 
-
 # Quetsion 3
+
 ## Question 3A:
+
 The head() function gives the first five rows of the dataset by default, it shows the real value; summary() on the other hand, gives the mean, medians, quantiles and number of NAs for the numeric columns, and for the columns wit string data, it will present what's the lenght of thee column, the class and the mode of the data from that column.
+
 ```{r}
 df <- read.csv("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/homework1/sea-ad.csv")
 head(df)
 summary(df)
 ```
+
 ## Question 3B:
+
 ```{r}
 # dimensionality of df
 print(dim(df))
@@ -83,8 +90,8 @@ print(dim(df))
 print(class(df))
 ```
 
-
 ## Question 3C:
+
 ```{r}
 df$Age.at.Death <- ifelse(df$Age.at.Death == "90+", "90", df$Age.at.Death)
 
@@ -94,8 +101,8 @@ hist(df$Age.at.Death, main = "Histogram of Age at Death", xlab = "Age", ylab = "
 
 ```
 
-
 ## Question 3D:
+
 ```{r}
 df$Sex <- factor(df$Sex)
 df$APOE4.Status <- factor(df$APOE4.Status)
@@ -103,17 +110,23 @@ df$Cognitive.Status <- factor(df$Cognitive.Status)
 df$Braak <- factor(df$Braak)
 
 ```
+
 ## Question 3E:
+
 ```{r}
 summary(df)
 ```
+
 ## Question 3F:
+
 ```{r}
 table(df$Braak, df$Cognitive.Status)
 ```
 
 ## Question 3G:
+
 The table suggests that higher Last.CASI.Score ranges are associated with a lower frequency of dementia, indicating a potential trend where higher cognitive scores correlate with a reduced likelihood of dementia.
+
 ```{r}
 
 quintiles_Last_CASI_Score <- quantile(df$Last.CASI.Score, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
@@ -135,5 +148,3 @@ df$Last.CASI.Score.Quintiles <- cut(
 
 table(df$Last.CASI.Score.Quintiles, df$Cognitive.Status)
 ```
-
-
