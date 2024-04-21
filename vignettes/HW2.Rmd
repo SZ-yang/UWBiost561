@@ -219,10 +219,12 @@ print(plt_p3d)
 
 # Q4: Planning for the next homework -- thinking how to test a function
 
-1. Create specific test cases that cover a wide range of graph types, including edge cases such as graphs with no edges, graphs where every node is connected to every other node (complete graphs), and graphs with multiple maximal cliques of the same size.  Each test should verify that the function accurately identifies the largest clique.
+1. (sanity check) Create specific test cases that cover a wide range of graph types, including edge cases such as graphs with no edges, graphs where every node is connected to every other node (complete graphs), and graphs with multiple maximal cliques of the same size.  Each test should verify that the function accurately identifies the largest clique.
 
-2. 
-3. 
-4. 
+2. (Test with known ground truth) Use benchmark graphs for which the maximal cliques are already known and compare the function's output against these known cliques.  This could include both synthetic graphs and real-world networks where clique structures have been well-documented or theoretically established.
+
+3. (Cross-Validation with other Algorithms): Compare the outputs of your function with those from established, trusted algorithms or software packages that find maximal cliques. 
+
+4. test that the function’s performance aligns with theoretical expectations for its algorithm class, especially in terms of time complexity.
 
 
