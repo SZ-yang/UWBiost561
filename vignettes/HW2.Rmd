@@ -1,0 +1,228 @@
+---
+title: "BIOST 561: Homework 2"
+date: "Due date: 7:00pm on Monday, April 22nd, 2024"
+output: 
+  bookdown::html_document2:
+    number_sections: false
+    toc: true
+    toc_float:
+      toc_collapsed: true
+    theme: united
+vignette: >
+  %\VignetteIndexEntry{BIOST 561: Homework 2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+set.seed(10)
+```
+
+
+# Q0: Setting up`UWBiost561` package
+
+<u>**Question 0C**</u>: Make sure you can load your package. (You need the `bookdown` 
+package to knit the homework, similar to HW1.) 
+
+```{r}
+library(bookdown)
+library(tidyverse)
+library(ggplot2)
+```
+# Q1: Practice using tibbles
+
+Dataset 1
+
+```{r}
+country_population <- readr::read_csv("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/HW2_files/country_population.csv")
+country_population
+```
+
+Dataset 2
+
+```{r}
+country_birth <- readr::read_csv("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/HW2_files/country_birth.csv")
+country_birth
+```
+This question will allow you to practice basic data manipulation of these two `tibble` objects.
+
+<u>**Question 1A**</u>: 
+
+```{r}
+result_1a <- country_population %>%
+  filter(year >= 1990 & year <= 2010) %>%
+  group_by(iso3c) %>%
+  summarize(mean_population = mean(population), na.rm=TRUE)
+
+print(result_1a)
+```
+
+
+<u>**Question 1B**</u>: 
+
+```{r}
+result_1b <- country_birth %>%
+  filter(year >= 1990 & year <= 2010) %>%
+  select(iso3c, year, life_expect) %>%
+  drop_na() %>%
+  group_by(iso3c) %>%
+  summarize(
+    max_life_expect = round(max(life_expect), digits=2),
+    min_life_expect = round(min(life_expect), digits=2)
+  ) %>%
+  mutate(range_life_expect = round(max_life_expect - min_life_expect, digits=2))
+         
+print(result_1b)
+
+```
+
+
+<u>**Question 1C**</u>: 
+```{r}
+country_both <- inner_join(country_population, country_birth, by = "iso3c")
+
+print(head(country_both, 10))
+```
+
+```{r}
+dimensions <- dim(country_both)
+print(paste("Rows:", dimensions[1], "Columns:", dimensions[2]))
+```
+
+# Q2: Practice using ggplot via scatterplots and facets
+
+```{r}
+penguins <- readr::read_csv("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/HW2_files/palmerpenguins.csv")
+penguins
+```
+
+```{r}
+penguins %>%
+  ggplot(aes(x = bill_depth_mm, y = bill_length_mm)) +
+  geom_point()
+```
+
+<u>**Question 2A**</u>: 
+
+```{r}
+plt_2a <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point() +  # Add points
+  scale_color_manual(values = c("Adelie" = "cornflowerblue", 
+                                "Chinstrap" = "coral2", 
+                                "Gentoo" = "goldenrod3")) +
+  labs(
+    x = "Bill Length (mm)", 
+    y = "Bill Depth (mm)", 
+    title = paste("Relation among", nrow(penguins), "penguins"),
+    color = "Species"
+  ) +
+  theme_minimal()  
+
+# Print the plot
+print(plt_2a)
+```
+<u>**Question 2B**</u>: 
+
+
+```{r}
+
+# Create the plot with facets, regression lines, and adjusted point transparency
+plt_2b <- ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(aes(color = species), alpha = 0.8) + 
+  geom_smooth(method = "lm", aes(color = species), se = FALSE) +  
+  scale_color_manual(values = c("Adelie" = "cornflowerblue", 
+                                "Chinstrap" = "coral2", 
+                                "Gentoo" = "goldenrod3")) +
+  facet_wrap(~species) +  
+  labs(
+    x = "Bill Length (mm)", 
+    y = "Bill Depth (mm)", 
+    title = paste("Relation among", nrow(penguins), "penguins"),
+    color = "Species"
+  ) +
+  theme_minimal()  
+
+# Print the plot
+print(plt_2b)
+
+```
+
+# Q3: Practice using ggplot via heatmaps
+
+```{r}
+source("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/HW2_files/random_graph_functions.R")
+```
+
+```{r}
+set.seed(0)
+result <- generate_random_graph(n = 20,
+                                clique_fraction = 0.5,
+                                density_low = 0.1)
+adj_mat <- result$adj_mat
+dim(adj_mat)
+adj_mat[1:5,1:5]
+```
+
+<u>**Question 3A**</u>:
+
+The `generate_random_graph()` function in R creates a random graph with a specified number of nodes. It includes a portion where all nodes are connected to each other, called a clique, which can be adjusted in size. Additionally, the function sets a low chance for connections between other nodes outside this clique, creating a sparser network. The graph is symmetrical, meaning connections are two-way, and node positions in the network are shuffled to randomize their placement. This method allows for the simulation of networks with both tightly-knit groups and more loosely connected components.
+
+<u>**Question 3B**</u>: 
+
+The `pivot_longer_heatmap()` function converts an adjacency matrix into a long format suitable for heatmap visualization. It turns the matrix into a `tibble`, names the columns to represent nodes, adds row numbers, and then uses `pivot_longer()` to create a format where each row shows a connection status between two nodes. This transformation makes it easier to plot the data as a heatmap in `ggplot2`, with each row representing an interaction between a pair of nodes.
+
+```{r}
+mat_long <- pivot_longer_heatmap(adj_mat)
+mat_long
+```
+
+<u>**Question 3C**</u>: 
+
+```{r}
+plt_p3c <- ggplot(mat_long, aes(x = X, y = Y, fill = as.factor(Value))) +
+  geom_tile() +  
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Heatmap", x = "Column", y = "Row", fill = "Connection") +
+  coord_fixed(ratio = 1) +  
+  theme_minimal()  
+
+print(plt_p3c)
+```
+
+<u>**Question 3D**</u>: Congratulations! You have a working pipeline to visualize any adjacency matrix. For this last question,
+we will combine all your functions to visualize the following:
+
+```{r}
+adj_mat2 <- result$adj_mat[result$rev_order, result$rev_order]
+```
+
+
+```{r}
+
+mat_long2 <- pivot_longer_heatmap(adj_mat2)
+
+plt_p3d <- ggplot(mat_long2, aes(x = X, y = Y, fill = as.factor(Value))) +
+  geom_tile() +  # Use geom_tile() to create the heatmap tiles
+  scale_fill_manual(values = c("0" = "red", "1" = "blue")) +
+  labs(title = "Heatmap of Permuted Adjacency Matrix", x = "Column", y = "Row", fill = "Connection") +
+  coord_fixed(ratio = 1) +  # Set the aspect ratio to 1:1
+  theme_minimal()  # Use a minimal theme for a cleaner look
+
+
+print(plt_p3d)
+```
+
+
+# Q4: Planning for the next homework -- thinking how to test a function
+
+1. Create specific test cases that cover a wide range of graph types, including edge cases such as graphs with no edges, graphs where every node is connected to every other node (complete graphs), and graphs with multiple maximal cliques of the same size.  Each test should verify that the function accurately identifies the largest clique.
+
+2. 
+3. 
+4. 
+
+
