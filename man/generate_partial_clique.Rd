@@ -23,9 +23,3 @@ A list containing a single element \code{adj_mat}, which is an n x n adjacency m
 \description{
 This function creates a random graph containing a specified number of nodes and embeds a partial clique with defined edge density. The graph is represented as an adjacency matrix.
 }
-\examples{
-# Generate a graph with 10 nodes, with 30\% of them forming a partial clique and 50\% edge density within the clique
-graph <- generate_partial_clique()$adj_mat
-print(graph)
-
-}
