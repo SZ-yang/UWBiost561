@@ -46,16 +46,9 @@ simulation$adj_mat
 ```
 # Q2: Designing a function to find the maximal partial clique
 
+<u>**Question 2C**</u>: **Note that although this method would work and will find the largest partial clique, the run time of it might not be that satisfactory (it exceeds 30 secs when computing the largest partial clique for an adjancey martix of dimension 30)**
 
-
-<u>**Question 2C**</u>: Demonstrate (in this R Markdown file)
-that your `compute_maximal_partial_clique()` works on the random
-adjacency matrix outputted from your function `generate_partial_clique()`.
-Specifically, run
-the following lines. (If you are copy-pasting the following R chunk,
-remove the `eval = FALSE` tag.)
-
-```{r, eval = FALSE}
+```{r}
 library(UWBiost561)
 set.seed(0)
 simulation <- UWBiost561::generate_partial_clique(
@@ -72,11 +65,6 @@ res <- UWBiost561::compute_maximal_partial_clique(
 )
 res
 ```
-
-This question is purposefully open-ended. Your goal is to simply 
-show that the output of your `compute_maximal_partial_clique()` function
-based on the adjacency matrix from `generate_partial_clique()` is "reasonable."
-
 # Q3: Developing unit tests for your functions
 
 <mark>**Intent**: The intent of this question is to give you experience
@@ -154,92 +142,30 @@ that `devtools::check()` complains about -- I would advise using Google to deter
 in this R Markdown file.)</span>
 
 
-<u>**Question 4C**</u>: Include a few screenshots of your `devtools::check()` 
-result in this R Markdown file. (As a guideline, one screenshot should show the first 20-or-so lines of your 
-`devtools::check()` results, and a second screenshot should show the last 
-20-or-so lines of your results.) You can use the `knitr::include_graphics()` function to include
-figures inside this R Markdown file.
-
-The intent of this question is to provide "evidence" that your `devtools::check()`
-went smoothly. You do not need to worry about what your screenshots show specifically.
+<u>**Question 4C**</u>:
 
 Figure \@ref(fig:check1) and \@ref(fig:check2) shows the screenshots you are trying to reproduce.
 
 ```{r check1, out.width = "400px", fig.align="center", echo = FALSE, fig.cap=c("The first screenshot you are trying to reproduce (without the Sample watermark) in Question 4C.")}
-knitr::include_graphics("https://github.com/linnykos/561_s2024_public/blob/main/HW3_files/check1_editted.png?raw=true")
+knitr::include_graphics("https://github.com/SZ-yang/randomfiles/blob/main/BIOST561HW3.png?raw=true")
 ```
 
 ```{r check2, out.width = "400px", fig.align="center", echo = FALSE, fig.cap=c("The second screenshot you are trying to reproduce (without the Sample watermark) in Question 4C.")}
-knitr::include_graphics("https://github.com/linnykos/561_s2024_public/blob/main/HW3_files/check2_editted.png?raw=true")
-
+knitr::include_graphics("https://github.com/SZ-yang/randomfiles/blob/main/Biost561_HW3.png?raw=true")
 ```
 
 
-<u>**Question 4D**</u>: Please include the following code chunk's result in your Markdown file. (If you are copy-pasting the following R chunk,
-remove the `eval = FALSE` tag.) This will be useful for me (Kevin) to assess which packages and R version you are using.
-
-```{r, eval = FALSE}
+<u>**Question 4D**</u>: 
+```{r}
 devtools::session_info()
 ```
 
 
 # Q5: Storyline for HW4 and final project
+<u>**Question 5A**</u>: 
+"I can access OpenSesame." 
 
-<mark>**Intent**: The intent of this question is to prepare you 
-for HW4 and the final project.</mark>
+<u>**Question 5B**</u>: In a few sentences, please describe what you think you'd like to make do for your final project:
 
-<u>**Please read: What to expect for HW4**</u>:
-For HW4, I will be curating every student's implementation of `compute_maximal_partial_clique()` and provide one folder that contains every student's
-(anonymized) implementation.
-Then, you will be: 
-
-1. Doing a code review on two different implementations that I will assign to you specifically (which involves reading the code as well as seeing if these implementations pass your unit tests)
-2. Performing a modest simulation study that compares all the implementations in terms
-of 1) the size of the maximal partial clique it found, 2) the time it takes 
-to complete, and 3) how often it crashes or gives an invalid output. You will be doing this on Bayes (our Biostat servers). 
-
-For this reason, I <u>**strongly**</u> encourage you to take diligence testing your code since every other student will soon be trying out your implementation on their simulated adjacency matrices. 
-
-<u>**Question 5A**</u>: Please make sure you can access this website: [https://opensesame.biostat.washington.edu/](https://opensesame.biostat.washington.edu/). You will need to use this website to access the department servers. (More on this in Lectures 7 and 8.) 
-
-If you can, please write, "I can access OpenSesame." If not, please write, "I cannot access OpenSesame," and please email Kevin immediately (who will help get you access to OpenSesame).
-
-<u>**Question 5B**</u>: In a few sentences, please describe what you think
-you'd like to make do for your final project. It is 100% okay for you to "reuse" R code for another course (either past or current, even from your previous institution).
-Ideally, it is R code that **you** care about. What you write here is **not** committal -- you can change your idea anytime. The intent of this question is to get you to start thinking about this.
-
-The full project specifications will be released in a few weeks. To give you a sense of what to expect, you'll be making a PkgDown website that looks like [https://linnykos.github.io/561_s2024_example/](https://linnykos.github.io/561_s2024_example/). Briefly, this will involve:
-
-- 1. A R package that includes R code (and possibly code in other languages) to solve a problem. The problem can be as large or as small in scope as you want.
-- 2. Unit tests for all your R functions.
-- 3. Documentation for all your exported R functions.
-- 4. A vignette that explains how to use some of your R functions. The vignette should be "self-contained" (that is, it should include explicit directions on downloading data, or your package has an R function to generate synthetic data).
-- 5. A `README` page that explains the purpose of the R package.
-- 6. A public PkgDown website for this R package that is hosted via GitHub. (You can take the website down once your grade for this course has been submitted.)
-
-If you do not have any R project in mind, the full project specifications will
-give you more specific directions on using your `UWBiost561` package to satisfy
-these requirements. However, this experience will feel more meaningful if you
-use something you value more as the foundation for the final project.
-
-(This project is <u>*not*</u> intended to take you a long time. Ideally, if you choose
-a coding project you care about as the foundation for this final project, 
-you already have all the R code, and all that remains is "everything else."
-I do not care about how many or complex your functions are.
-Realistically, you can use just a meaningful subset of functions in your existing code base
-for this project.)
-
-<u>**Question 5B**</u>: Push <u>**all**</u> your code onto GitHub. This includes all the contents inside your `R` and `tests` folder and your `DESCRIPTION`, `NAMESPACE`, and `LICENSE` files. Please double-check that you can see all the necessary files online on the GitHub website (i.e., https://github.com/).
-<span style="color: blue;">(There is nothing to report for this question.)</span>
-
-# Q6: Feedback (Optional)
-
-This "question" is an additional way for students to communicate with instructors. 
-You could include positive feedback about topics you enjoyed learning in this module, critiques about 
-the course difficulty/pacing, 
-or some questions/confusions you had about course material.
-Your feedback can help shape the course for the rest of this quarter and 
-future years. Please be mindful and polite when providing feedback.
-You may leave this question blank.
-
+I am thinking about combine the project for BIOST527 (probably related to the constrained density estimation), with this course project, that is to create a R package people to implement this constrained density estimation method.
 

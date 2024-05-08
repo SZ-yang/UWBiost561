@@ -2,3 +2,5 @@
 
 export(compute_maximal_partial_clique)
 export(generate_partial_clique)
+importFrom(stats,runif)
+importFrom(utils,combn)

@@ -8,6 +8,8 @@
 #'
 #' @return A list containing a single element `adj_mat`, which is an n x n adjacency matrix of the graph. The matrix includes a partial clique according to the specified edge density.
 #'
+#'@importFrom stats runif
+#'
 #' @export
 generate_partial_clique <- function(n = 10 , clique_fraction = 0.3, clique_edge_density = 0.5) {
   # Validate input parameters

@@ -17,59 +17,62 @@
 #'         the actual edge density of the found clique. If no clique meets the criteria,
 #'         `clique_idx` will be an empty integer vector and `edge_density` will be 0.
 #'
+#'@importFrom utils combn
+#'
 #' @export
-library(parallel)
-
 compute_maximal_partial_clique <- function(adj_mat, alpha = 0.5) {
   n <- nrow(adj_mat)
 
-  # Check input conditions
-  if (!is.matrix(adj_mat) || !all(adj_mat == t(adj_mat)) || !all(adj_mat %in% c(0, 1))) {
+  # Check matrix is square
+  if (!is.matrix(adj_mat) || nrow(adj_mat) != ncol(adj_mat)) {
+    stop("adj_mat must be a square matrix.")
+  }
+
+  # Check matrix dimensions
+  if (nrow(adj_mat) < 5 || nrow(adj_mat) > 50) {
+    stop("adj_mat must have between 5 and 50 rows/columns.")
+  }
+
+  # Check matrix is symmetric with elements 0 or 1
+  if (!all(adj_mat == t(adj_mat)) || !all(adj_mat %in% c(0, 1))) {
     stop("adj_mat must be a symmetric matrix with elements 0 or 1.")
   }
 
-  if (!is.numeric(alpha) || length(alpha) != 1 || alpha < 0 || alpha > 1) {
-    stop("alpha must be a single numeric value between 0 and 1.")
+  # Check all diagonal elements are 1
+  if (!all(diag(adj_mat) == 1)) {
+    stop("All diagonal elements of adj_mat must be 1.")
   }
 
   # Function to calculate edge density
   calculate_density <- function(nodes) {
+    if (length(nodes) < 2) {
+      return(NA)  # Return NA for sets of nodes that cannot possibly form a clique
+    }
+
     subgraph <- adj_mat[nodes, nodes]
     # Remove diagonal elements for the edge count
     actual_edges <- (sum(subgraph) - length(nodes)) / 2
     possible_edges <- length(nodes) * (length(nodes) - 1) / 2
+
+    if (possible_edges == 0) {  # This should never happen now, but just in case
+      return(NA)
+    }
+
     return(actual_edges / possible_edges)
   }
 
-  # Determine number of cores, leaving one free
-  numCores <- detectCores() - 1
-
   # Try to find the maximal clique with the density above alpha
-  results <- NULL
   for (size in n:1) {
-    combinations <- combn(n, size, simplify = FALSE)
-    # Parallel processing for each size of combination
-    temp_results <- mclapply(combinations, function(nodes) {
+    combinations <- combn(n, size)
+    for (i in 1:ncol(combinations)) {
+      nodes <- combinations[, i]
       current_density <- calculate_density(nodes)
-      if (current_density >= alpha) {
-        list(clique_idx = nodes, edge_density = current_density)
-      } else {
-        NULL
+      if (!is.na(current_density) && current_density >= alpha) {
+        return(list(clique_idx = nodes, edge_density = current_density))
       }
-    }, mc.cores = numCores)
-
-    # Check if any valid cliques were found
-    valid_results <- Filter(Negate(is.null), temp_results)
-    if (length(valid_results) > 0) {
-      results <- valid_results[[1]]
-      break
     }
   }
 
-  # Return result if found, else return empty
-  if (is.null(results)) {
-    return(list(clique_idx = integer(0), edge_density = 0))
-  } else {
-    return(results)
-  }
+  # Return empty if no clique found
+  return(list(clique_idx = integer(0), edge_density = 0))
 }
