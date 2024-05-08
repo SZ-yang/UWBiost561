@@ -8,11 +8,6 @@
 #'
 #' @return A list containing a single element `adj_mat`, which is an n x n adjacency matrix of the graph. The matrix includes a partial clique according to the specified edge density.
 #'
-#' @examples
-#' # Generate a graph with 10 nodes, with 30% of them forming a partial clique and 50% edge density within the clique
-#' graph <- generate_partial_clique()$adj_mat
-#' print(graph)
-#'
 #' @export
 generate_partial_clique <- function(n = 10 , clique_fraction = 0.3, clique_edge_density = 0.5) {
   # Validate input parameters
@@ -45,4 +40,3 @@ generate_partial_clique <- function(n = 10 , clique_fraction = 0.3, clique_edge_
   # Return the adjacency matrix as a list
   return(list(adj_mat = adj_mat))
 }
-
