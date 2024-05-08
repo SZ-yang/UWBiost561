@@ -28,5 +28,4 @@ This function creates a random graph containing a specified number of nodes and 
 graph <- generate_partial_clique()$adj_mat
 print(graph)
 
-#' @export
 }
