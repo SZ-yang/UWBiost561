@@ -13,7 +13,7 @@
 #' graph <- generate_partial_clique()$adj_mat
 #' print(graph)
 #'
-#' #' @export
+#' @export
 generate_partial_clique <- function(n = 10 , clique_fraction = 0.3, clique_edge_density = 0.5) {
   # Validate input parameters
   stopifnot(is.numeric(n) && n > 0 && n %% 1 == 0)  # n must be a positive integer

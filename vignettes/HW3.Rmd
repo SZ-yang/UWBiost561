@@ -22,34 +22,6 @@ knitr::opts_chunk$set(
 set.seed(10)
 ```
 
-# Instructions
-
-These instructions are essential, so please read them all carefully. 
-
-- Submit your homework on your GitHub page as the RMarkdown (`.Rmd`) and HTML files. 
-
-- Please answer the question prompt and show your code (inline). That is,
-all your code should be visible in the knitted chunks.
-
-- To complete this homework, you may write in the `HW3.Rmd` file. 
-(It is recommended to complete this homework in R Studio, where clicking the
-`Knit` button would knit your homework.)
-
-# Disclosures
-
-- Please disclose below who you collaborated with and if you've used ChatGPT (or any
-comparable AI tool) to what extent when completing this homework. See the syllabus
-for the course expectations.
-
-(Note: This homework is substantially more challenging than Homework 2
-since this homework is much more open-ended.
-If you feel stuck in this homework,
-feel free to consult ChatGPT. ChatGPT can give you strategies for tackling a problem, code on how to tackle the problem, and an explanation
-of how each step of the code works.
-Try using ChatGPT as part of your workflow.
-This homework will get you to realize that writing "code that gets the job done" (while important)
-is only a tiny part of what it means to "be a strong coder.")
-
 # Note about the homework
 
 **Note**: Most of your R code for this homework will **not** be in this homework.
@@ -58,88 +30,13 @@ Therefore, you only need to show a little code inside this R Markdown file.
 You only need to write things inside this R Markdown file in the questions that explicitly ask you to do so.
 
 # Q1: Designing a function to generate random graphs with partial cliques
-
-<mark>**Intent**: The intent of this question is: 1) to give you practice putting
-R functions into your `UWBiost561` package, and 2) to help you create ways to test your function in Question 3 below meaningfully.</mark>
-
-Recall the `generate_random_graph()` function that you used in Homework 2. 
-
-```{r}
-source("https://raw.githubusercontent.com/linnykos/561_s2024_public/main/HW2_files/random_graph_functions.R")
-generate_random_graph
-```
-
-Your (deliberately open-ended) goal in this question is to design a function
-`generate_partial_clique()` that generates a random adjacency matrix 
-with a large **partial** clique, not necessarily a (fully connected) clique. 
-
-<u>**Question 1A**</u>: Create a function `generate_partial_clique()`
-inside your `UWBiost561` package inside a file called `generate_partial_clique.R`
-inside your `R` folder. 
-<span style="color: blue;">(There is nothing to report for this question. Your code will be in the `R` folder, **not**
-in this R Markdown file.)</span>
-
-<mark>**Specifications on your function overall**:</mark>
-
-1. Your function **must** be called `generate_partial_clique`.
-2. Your function **must** be in a file called `generate_partial_clique.R` in the `R` folder within your `UWBiost561` package.
-3. If you write additional "helper" functions that `generate_partial_clique()` depends on, **all** your additional functions must also be in `generate_partial_clique.R`. That is,
-`generate_partial_clique.R` should be "self-contained."
-4. Your code must only be written in R. (You cannot write code in C++, Java, or Python.)
-
-
-<mark>**Specifications of your function inputs**:</mark>
-
-1. The first, second, and third arguments of `generate_partial_clique()` must be called `n`, `clique_fraction`, and `clique_edge_density` respectively. 
-2. Your function should check that the `n` argument is a positive integer. This argument represents the number of nodes in the graph (in a literal sense, the number of rows and columns in your outputted adjacency matrix).
-3. Your function should check that the `clique_fraction` argument is a single numeric between 0 and 1 (inclusive). This argument represents the fraction of nodes
-(of the `n` nodes) that are part of the partial clique. (That is, at least
-`round(n*clique_fraction)` nodes should be part of a partial clique.)
-4. Your function should check that the `clique_edge_density` argument is a single numeric between 0 and 1 (inclusive). This argument represents the edge density among the nodes in the clique. (For example, the `generate_random_graph()` you used in Homework 2 essentially
-had `clique_edge_density=1`, as the adjacency matrix you worked in Homework 2 was a (fully connected) clique.) Specifically, this means if your partial clique
-has `m=round(n*clique_fraction)` nodes, then a (fully connected) clique would have
-`m*(m-1)/2` (i.e., `m` choose 2) edges. A partial clique with edge density of 
-`clique_edge_density` would instead have <u>at least</u> `round(clique_edge_density*m*(m-1)/2)` edges among the `m` nodes.
-5. Your function may take in other arguments, **but** every argument
-**not** `n`, `clique_fraction` and `clique_edge_density` **must** have a default value. To use your function, a user should not need to set any other argument aside from `n`, `clique_fraction` and `clique_edge_density`.
-
-<mark>**Specifications of your function outputs**:</mark>
-
-You must output a list. 
-
-1. The first named element must specifically be `adj_mat`. This is the random adjacency matrix that you construct with the partial clique.
-Specifically, `adj_mat` should be a symmetric `matrix` with only values `0` or `1`, 2) has `1`'s along its diagonal, and 3) has no row- or column-names. (By construction, it should have a partial clique consisting of at least `round(clique_fraction*n)` nodes with 
-edge density `clique_edge_density`.)
-2. You may optionally return any additional outputs (within reason) that your function might need for your testing/debugging.
-
-<u>*Note*</u>: I *purposely* did not specify all the necessary ingredients to
-create the random graph. You can design *any* function as long as it satisfies the
-required specifications. However, as you will realize when you start testing your
-function in Question 3, some ways to create graphs with partial cliques are "too easy" that they "aren't useful" when testing your `compute_maximal_partial_clique()` in 
-Question 2.
-
-<u>**Question 1B**</u>: Following the demo showed in Lecture 4,
-create a ROxygen skeleton for the `generate_partial_clique()` function
-inside the `generate_partial_clique.R` file. Write meaningful documentation for the
-`generate_partial_clique()` function.
-Importantly, it should be exported via the `@export` tag.
-<span style="color: blue;">(There is nothing to report for this question. The ROxygen skeleton is **not** for this R Markdown file)</span>
-
-<u>**Question 1C**</u>: Install your R package. You can do this
-using R Studio or running `devtools::install()` in the R console. 
-<span style="color: blue;">(There is nothing to report for this question.
-You do *not* do this in your R Markdown file.)</span>
-
-You might find [https://docs.google.com/document/d/103ayPYvyzXHa84YFt-cQm_hMM1Ukqo7hlUygYD6UnC0/edit?usp=sharing](https://docs.google.com/document/d/103ayPYvyzXHa84YFt-cQm_hMM1Ukqo7hlUygYD6UnC0/edit?usp=sharing) useful if you are having difficulty installing your `UWBiost561` package.
-
-<u>**Question 1D**</u>: In your homework's R Markdown file, show that your `generate_partial_clique()` function works. Specifically, run
-the following lines. (If you are copy-pasting the following R chunk,
+<u>**Question 1D**</u>: In your homework's R Markdown file, show that your `generate_partial_clique()` function works. Specifically, run the following lines. (If you are copy-pasting the following R chunk,
 remove the `eval = FALSE` tag.)
 
-```{r, eval = FALSE}
+```{r}
 library(UWBiost561)
 set.seed(0)
-simulation <- UWBiost561::generate_partial_clique(
+simulation <- generate_partial_clique(
   n = 10,
   clique_fraction = 0.5,
   clique_edge_density = 0.9
