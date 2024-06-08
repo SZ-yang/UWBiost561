@@ -265,49 +265,15 @@ Note: For this question, you want to generate an adjacency matrix where `n` is l
 <u>**Question 2B**</u>: 
 I am going to use the demo simulation showed during Lecture 8.
 
-<u>**Question 2C**</u>: In your `R` folder, design a function that executes your intended simulation plan. (I am purposely being loose and very open-ended about designing this simulation regarding the inputs or outputs. In contrast to HW3, where everything was spelled out explicitly, I am now giving you the task of meaningfully designing the inputs/outputs.)
 
-Note 1: You want to use `compute_maximal_partial_clique_master()` in your simulation. This would make your life easier when switching between different implementations. The main difficulties in this question are: 
-
-- 1) How to extract and store the results of `compute_maximal_partial_clique_master()`
-- 2) How do you decide what meaningful outputs your simulation function should return (for example, you probably don't need to return the `adj_mat` adjacency matrices themselves)? This will highly depend on what your simulation plan is trying to study!
-- 3) How to handle the instances when `compute_maximal_partial_clique_master()`: A) times out, B) errors, or C) outputs an alleged `clique_idx` that is invalid because it doesn't form a partial clique with edge density `alpha` or larger.
-
-Note 2: Be aware -- you should be a healthy skeptic when using other people's code in a simulation. Just because a method claims it found a partial clique, you should verify that it is indeed a partial clique with edge density larger than `alpha`. You might want to use the `compute_correct_density()` function provided in `compute_maximal_partial_clique_master.R`.
-
-Note 3: I am asking you to make a <u>**function**</u> to perform your simulation (instead of just an R script) since I will be asking you to test your simulation function in Question 2D below.
-
-Note 4: You should allow your simulation function to take as input the different levels of your simulation study and the number of trials (and other parameters of your choosing). That way, you can more easily "test" a "simple" simulation study in Question 2D below.
-
-Note 5: You (ideally) want to set up your simulation such that for each trial in a level, you generate <u>**one**</u> random adjacency matrix that is used in <u>**all 25**</u> different implementations of `compute_maximal_partial_clique`. This gives a "fair" comparison across all 25 methods. You also might want to set the random seed (via `set.seed()`) before generating that random adjacency matrix for this trial so you can easily reproduce the results from a particular trial if needed.
-
-Note 6: This question is the hardest part of HW4. Since this question is purposely more open-ended, it is harder to use ChatGPT to help you with this function. However, most of your future coding experiences will be open-ended, so practicing "coding with ChatGPT" in more unstructured settings is good. I encourage you to work with your classmates on this question (but, as per our syllabus rules, do not directly copy your classmate's code).
-
-<span style="color: blue;">(There is nothing to report for this question. Your code will be in the `R` folder, **not**
-in this R Markdown file.)</span>
-
-<u>**Question 2D**</u>: Create a few (more than one) unit tests for your simulation function. This unit test (like your unit tests in HW3) will be in your `tests/testthat` folder. I am also purposely vague about how many tests or what kind of unit tests to write. This is for you to decide! After all, you're about to unleash your code to perform a (potentially long) simulation test, so you hope you've tested your simulation code well enough for this to be a good use of time.
-
-Note: Your unit tests should be <u>**fast**</u> (i.e., take no more than a minute to run). This means your unit tests should <u>**not**</u> be performing your complete simulation study. After all, it'll be a useless unit test if it takes an hour to figure out if your unit test passed. However, you want your unit tests (which take less than a minute) to give you confidence that your code will work when running the complete simulation study (which might take more than an hour).
-
-<span style="color: blue;">(There is nothing to report for this question. Your code will be in the `tests/testthat` folder, **not**
-in this R Markdown file.)</span>
-
-<u>**Question 2E**</u>: Similar to what you did in HW3, please include a screenshot of your output after running `devtools::check()`. You should still have a `UWBiost561` package
-that passes all the checks and your unit tests.
-(As a guideline, one screenshot should show the first 20-or-so lines of your 
-`devtools::check()` results, and a second screenshot should show the last 
-20-or-so lines of your results.) You can use the `knitr::include_graphics()` function to include
-figures inside this R Markdown file.
-
-The intent of this question is to provide "evidence" that your `devtools::check()`
-went smoothly. You do not need to worry about what your screenshots show specifically.
-
+<u>**Question 2E**</u>:
 # Q3: Performing the simulation study
-
+```{r check1, out.width = "400px", fig.align="center", echo = FALSE, fig.cap=c("The first screenshot you are trying to reproduce (without the Sample watermark) in Question 2E.")}
+knitr::include_graphics("https://github.com/SZ-yang/UWBiost561/blob/main/vignettes/devtools_check.png?raw=true")
+```
 <u>**Question 3E**</u>:
-```{r check1, out.width = "400px", fig.align="center", echo = FALSE, fig.cap=c("The first screenshot you are trying to reproduce (without the Sample watermark) in Question 4C.")}
-knitr::include_graphics("https://github.com/SZ-yang/UWBiost561/blob/main/vignettes/hw4-demo_bayes_plot.png?raw=true")
+```{r check2, out.width = "400px", fig.align="center", echo = FALSE, fig.cap=c("The first screenshot you are trying to reproduce (without the Sample watermark) in Question 3E.")}
+knitr::include_graphics("https://github.com/SZ-yang/UWBiost561/blob/main/vignettes/HW4_simulation.png?raw=true")
 ```
 
 
