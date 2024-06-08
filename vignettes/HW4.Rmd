@@ -305,67 +305,10 @@ went smoothly. You do not need to worry about what your screenshots show specifi
 
 # Q3: Performing the simulation study
 
-<mark>**Intent**: The intent of this question is to perform the simulation study and to practice visualizing simulation results.</mark>
+<u>**Question 3E**</u>:
+```{r check1, out.width = "400px", fig.align="center", echo = FALSE, fig.cap=c("The first screenshot you are trying to reproduce (without the Sample watermark) in Question 4C.")}
+knitr::include_graphics("https://github.com/SZ-yang/UWBiost561/blob/main/vignettes/hw4-demo_bayes_plot.png?raw=true")
+```
 
-Now that you've written a function to perform your simulation study, you want to write more code to perform the actual simulation study. This will technically involve at least 3 new files in your `vignettes` folder: one `.R` file to perform the simulation study, one accompanying `.slurm` script to submit those above `.R` file to Bayes, and one `.R` file to load the simulation results and visualize the results. The following questions will guide you through these three files.
-
-<u>**Question 3A**</u>: In your `vignettes` folder, make a file called `HW4_simulation_execute.R`, which will be a R script that: 1) loads your `UWBiost561` package, and 2) executes your simulation function inside your `UWBiost561` package.
-This simulation will be the "full" simulation study you outlined in Question 2B above.
-(This is the specific `.R` file that might take a couple of hours to finish, depending on how complex your simulation study is.) The end of your `HW4_simulation_execute.R` should save your simulation results as `HW4_simulation.RData`, an `.RData` file. (For example, the argument to the `save()` function could be `file = ~/HW4_simulation.RData`. This would save the results to a `HW4_simulation.RData` file under your home directory on Bayes.) 
-
-Then, make an accompanying `HW4_simulation_execute.slurm` that submits your `HW4_simulation_execute.R` as a job to Bayes. Please limit yourself to `10gb` of memory (i.e., a line in `HW4_simulation_execute.slurm` should read `#SBATCH --mem-per-cpu=10gb`). (Your simulation study should not require more than 10 Gigabytes of memory. If it does, you are likely not being practical in your simulation study.)
-
-<span style="color: blue;">(There is nothing to report for this question. Your code will be in the `vignettes` folder, **not**
-in this R Markdown file.)</span>
-
-See Lectures 7 and 8 for more details on how to do this.
-
-<u>**Question 3B**</u>: Now, install both `igraph` and your `UWBiost561` package in R.
-The `igraph` package can be installed as usual (i.e., via `install.packages(igraph)` in an interactive R session on Bayes). Lecture 8 and [https://docs.google.com/document/d/1-ZTDPp39zbhsKbQ2FfBoCtiXKQj0jQSg75MAatYfiGI/edit?usp=sharing](https://docs.google.com/document/d/1-ZTDPp39zbhsKbQ2FfBoCtiXKQj0jQSg75MAatYfiGI/edit?usp=sharing) will give you a few options on how to install your `UWBiost561` package on Bayes.
-
-<span style="color: blue;">(There is nothing to report for this question.)</span>
-
-<u>**Question 3C**</u>: Now, run your simulation study. In the terminal, this means you will 1) navigate to your `UWBiost561/vignettes` folder on Bayes (this might be something like `cd ~/UWBiost561/vignettes`) and 2) run the command: `sbatch HW4_simulation_execute.slurm`.
-
-Note 1: This question might cause you pain since you might not know if your script is working as intended. (Additionally, suppose you did not test your simulation function thoroughly. In that case, your `HW4_simulation_execute.slurm` script might crash, and you'll be forced to debug your `UWBiost561` package and re-install it, etc. It's a pain. Trust me, you want to test your simulation function thoroughly before you do this Question.)
-
-<mark><u>**Note 2:**</u> Do <u>**not**</u> parallelize your simulation across multiple cores or write a batch SLURM script to submit multiple jobs for this question. (Many of you will likely be working on the homework at similar times, and I cannot guarantee that the server can allow an entire course of students to submit parallelized jobs simultaneously.) If this note does not make any sense to you, don't worry about it.</mark>
-
-<span style="color: blue;">(There is nothing to report for this question. You are simply running your `HW4_simulation_execute.slurm` file.)</span>
-
-<u>**Question 3D**</u>: Finally, create a file called `HW4_simulation_plot.R` under the `vignettes` folder. You will design this script to load your saved results in `HW4_simulation.RData`, visualize the results, and save the plot into your `vignettes` folder. Name this one plot as `HW4_simulation.png`. (You can save your plot in a different file format, but `.png` is the easiest one to work with.)
-
-How complicated should this script be? It depends on the results you saved in `HW4_simulation.RData`. For example, if you saved the clique size of each method in each trial for each level, then you might need to compute the average clique size across all the trials for each level in this script. 
-
-What should you plot? It depends on what your simulation plan was intended to study (which you wrote in Question 2B). I'm leaving this open-ended so you can practice determining how best to demonstrate the results you're trying to study. 
-
-Note 1: You can run your `HW4_simulation_plot.R` script <u>**interactively**</u> on Bayes. You do not need to write a `.slurm` script for this if you prefer not to (since your entire `HW4_simulation_plot.R` script should take only a few minutes to run. After all, you're simply loading in and plotting the results. There shouldn't be any very fancy computation being performed in this script, and indeed, you shouldn't be computing any maximal partial cliques in this script).
-
-Note 2: Feel free to consult [https://r-graph-gallery.com/](https://r-graph-gallery.com/) to get ideas on how to meaningfully visualize your results.
-
-<span style="color: blue;">(There is nothing to report for this question. Your code will be in the `vignettes` folder, **not**
-in this R Markdown file.)</span>
-
-<u>**Question 3E**</u>: Now, on Bayes, there should be at least four new files in the `vignettes` folder due to Question 3A-3D: `HW4_simulation_execute.R`, `HW4_simulation_execute.slurm`, `HW4_simulation_plot.R`, and `HW4_simulation.png`. (There might be many other files, but I am okay with it if there are more files than needed.) Commit and push all these files via Git (using the command line on Bayes) onto GitHub.com (via `git push`), and then pull all these files via Git onto your local laptop. (You can pull either through the command line via `git pull` or the RStudio GUI.)
-
-Finally, include your plot in this R Markdown file. (I'm having you put your plot in your `vignettes` folder and push/pull your `UWBiost561` package because I'm assuming you knit this `HW4.Rmd` file locally on your laptop, but you need to somehow get your plot from Bayes onto your local laptop.)
-
-# Q4: Describing your final project
-
-<mark>**Intent**: The intent of this question is to make sure you have a plan for the final project.</mark>
-
-I will release the final project specifications (again, which involve making a PkgDown website of any R package of your choosing of any scope) on Canvas. This will be released (at the latest) by May 19th.
-
-Please write (in one to five sentences) what you are thinking of doing for your final project. If your answer hasn't changed since HW3, you can copy-paste your answer from HW3 into this question for HW4.
-
-# Q5: Feedback (Optional)
-
-This "question" is an additional way for students to communicate with instructors. 
-You could include positive feedback about topics you enjoyed learning in this module, critiques about 
-the course difficulty/pacing, 
-or some questions/confusions you had about course material.
-Your feedback can help shape the course for the rest of this quarter and 
-future years. Please be mindful and polite when providing feedback.
-You may leave this question blank.
 
 
