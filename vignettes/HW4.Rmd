@@ -262,40 +262,8 @@ Using the provided code as a framework, use the `compute_maximal_partial_clique_
 
 Note: For this question, you want to generate an adjacency matrix where `n` is large (i.e., a value close to 50), but `time_limit` is very small (i.e., just a few seconds). You deliberately want to cause a `timed_out` status.
 
-<u>**Question 2B**</u>: Describe what you would like your simulation to study in a few sentences. Specifically, you are making a <u>**simulation plan**</u> (see Lecture 8 for details).
-
-Your plan should answer the following questions:
-
-- 1) How are you generating the random graphs for your analysis? What qualities do those random graphs have? (You can use your `generate_partial_clique()` function, and then you would describe what kind of graph your `generate_partial_clique()` makes.)
-- 2) How are you varying the random graphs across the different "levels" of your analysis? (For example, you can vary `n`, `clique_fraction`, `clique_edge_density`, and/or `alpha`. Your simulation study can focus on changing one or two values.)
-- 3) Which different methods are you using in your simulation study? (This question is moot for this homework since you'll be using all 25 implementations of `compute_maximal_partial_clique`, but please write this down for thoroughness.)
-- 4) What do you hope to learn with your simulation study? Alternatively, what trends/patterns/results are you hoping to see?
-- 5) How many trials do you intend to run per "level"?
-- 6) How much time do you estimate your simulation study will need at maximum? See Note 2 below.
-
-The only hard requirements I am imposing for this simulation study are:
-
-- You **<u>must</u>** use all 25 implementations of `compute_maximal_partial_clique` in your simulation study, where each method is used on every adjacency matrix you generate.
-- Your simulation study must have at least 2 different levels, and at least 2 trials for each level. 
-- If you are choosing to vary `n` (the number of nodes), the largest `n` you consider in your simulation study is `n=50`.
-- Please use `compute_maximal_partial_clique_master()` when using each of the 25 implementations (instead of calling the `compute_maximal_partial_clique` implementations directly). Additionally, please do not set `time_limit` to be larger than 30 (i.e., regardless of large your simulation study gets, please do not allow more than 1 minute for any implementation). There are 25 implementations, and I wouldn't want just one trial to take more than 15 minutes!
-- <mark>Your simulation study should take <u>**less than 5 hours**</u> to run to completion on a single core (i.e., not parallelized). See Note 2 below.</mark>
-
-Some ideas of what you can test for is: how often does each method get the maximal partial clique (among all 25 methods) when the number of nodes `n` changes, or when `alpha` changes? You can also try incorporating how fast an implementation is (in terms of time) into your simulation study.
-
-Feel free to post on Canvas Discussions your thoughts on the simulation study if you are unsure about your simulation study. 
-
-Note 1: If you choose to vary `n` in your simulation study, a value of `n` of 30 or more will make your simulation take a long time to finish. 
-
-Note 2: You will use the `compute_maximal_partial_clique_master()`, which can time a function out after a `time_limit` number of seconds (by default, 30 seconds). Therefore, the number of problem instances you will solve is, roughly speaking, (the number of levels) x (the number of methods) x (the number of trials per level), and the maximum time your simulation would need would be (the number of levels) x (the number of methods) x (the number of trials per level) x 30 seconds. 
-
-Note 3: Please design a straightforward or complicated simulation study appropriate to your comfort in coding. If you are overwhelmed by this homework, you can code a simulation study that only takes a few minutes to complete. (You can use the demo in class as a rough skeleton for your simulation study. Of course, you can design your own way to perform a simulation study as well.)
-
-Note 4: For the simulation study, you will (of course) need to generate random adjacency matrices. You can use the `generate_partial_clique()` you already created for HW3, but you can also modify `generate_partial_clique()` to better suit your simulation study's goals.
-
-Note 5: If you feel overwhelmed, you can more-or-less plan a simulation study that is very similar to the demo done in class (Lecture 8). Specifically, inside the `hw4_implementations.zip`, there are files `hw4-demo_bayes_execute.R`, `hw4-demo_bayes_execute.slurm`, and ``hw4-demo_bayes_plot.R` that effectively tell you how to do a specific simulation study. Feel free to use these scripts as closely as you want for your simulation study. (However, you would still need to make a simulation function and follow the guidelines still. There is still some non-trivial work you would still need to do.)
-
-<span style="color: blue;">(This is a writing question, not a coding question.)</span>
+<u>**Question 2B**</u>: 
+I am going to use the demo simulation showed during Lecture 8.
 
 <u>**Question 2C**</u>: In your `R` folder, design a function that executes your intended simulation plan. (I am purposely being loose and very open-ended about designing this simulation regarding the inputs or outputs. In contrast to HW3, where everything was spelled out explicitly, I am now giving you the task of meaningfully designing the inputs/outputs.)
 
