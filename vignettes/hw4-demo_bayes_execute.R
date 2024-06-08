@@ -4,7 +4,7 @@ library(UWBiost561)
 
 imp_numbers <- 1:25
 trials <- 5
-alpha_vec <- c(0.5, 0.95)
+alpha_vec <- c(0.5, 0.6, 0.7,0.8,0.9,0.95)
 
 # loop over the levels
 level_trial_list <- lapply(alpha_vec, function(alpha){

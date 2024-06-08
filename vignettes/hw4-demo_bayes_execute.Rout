@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > 
 > imp_numbers <- 1:25
 > trials <- 5
-> alpha_vec <- c(0.5, 0.95)
+> alpha_vec <- c(0.5, 0.6, 0.7,0.8,0.9,0.95)
 > 
 > # loop over the levels
 > level_trial_list <- lapply(alpha_vec, function(alpha){
@@ -74,6 +74,54 @@ Type 'q()' to quit R.
 [1] "Working on trial: 5"
 *************************
 [1] "===="
+[1] "Value of alpha: 0.6"
+[1] "Working on trial: 1"
+*************************
+[1] "Working on trial: 2"
+*************************
+[1] "Working on trial: 3"
+*************************
+[1] "Working on trial: 4"
+*************************
+[1] "Working on trial: 5"
+*************************
+[1] "===="
+[1] "Value of alpha: 0.7"
+[1] "Working on trial: 1"
+*************************
+[1] "Working on trial: 2"
+*************************
+[1] "Working on trial: 3"
+*************************
+[1] "Working on trial: 4"
+*************************
+[1] "Working on trial: 5"
+*************************
+[1] "===="
+[1] "Value of alpha: 0.8"
+[1] "Working on trial: 1"
+*************************
+[1] "Working on trial: 2"
+*************************
+[1] "Working on trial: 3"
+*************************
+[1] "Working on trial: 4"
+*************************
+[1] "Working on trial: 5"
+*************************
+[1] "===="
+[1] "Value of alpha: 0.9"
+[1] "Working on trial: 1"
+*************************
+[1] "Working on trial: 2"
+*************************
+[1] "Working on trial: 3"
+*************************
+[1] "Working on trial: 4"
+*************************
+[1] "Working on trial: 5"
+*************************
+[1] "===="
 [1] "Value of alpha: 0.95"
 [1] "Working on trial: 1"
 *************************
@@ -99,4 +147,4 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-303.804   2.023 308.490 
+907.175   4.196 913.666 
